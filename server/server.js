@@ -9,7 +9,8 @@ const port = process.env.PORT || 3004;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use('/songs/:id', express.static('public'));
 
 // create new stats for song
 app.post('/api/stats/', (req, res) => {
