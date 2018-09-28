@@ -23,6 +23,7 @@ class SocialArea extends React.Component {
     const id = window.location.pathname.split('/')[2];
     axios.get(`/api/stats/${id}`)
       .then(({ data }) => {
+        console.log(data);
         const response = data[0];
         this.setState({
           plays: response.plays,
