@@ -1,0 +1,13 @@
+CREATE KEYSPACE soundscale WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'replication_factor' : 3 }
+
+CREATE TABLE songs(
+   id int PRIMARY KEY,
+   name text,
+   plays text,
+   likes int,
+   reposts int
+   );
+
+
+CASSANDRA LOADER -> go to cassandra-loader/build and run the following;
+./cassandra-loader -f /home/brandon/Projects/javascript/component-brandon-socialArea/db/songswithsocialdatawithheader.csv -host localhost -schema "soundscale.songs(id, name, plays, likes, reposts)"

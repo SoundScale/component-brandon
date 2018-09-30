@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const connectionString = 'postgresql://postgres:Lucky888@localhost:5432/SoundScale';
+const connectionString = 'postgresql://postgres:Lucky888@localhost:5432/soundscale';
 
 const client = new Client({
   connectionString: connectionString,
@@ -17,3 +17,6 @@ client.query(`DROP TABLE IF EXISTS songs, social;`)
       PRIMARY KEY (ID))`
   ))
   .then(() => console.log("Completed Creating Tables"));
+
+
+
