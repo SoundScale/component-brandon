@@ -1,6 +1,6 @@
 const cassandra = require('cassandra-driver');
 // const client = new cassandra.Client({ contactPoints: ['localhost'], keyspace: 'soundscale' });
-const client = new cassandra.Client({ contactPoints: ['ec2-18-144-46-128.us-west-1.compute.amazonaws.com'], keyspace: 'soundscale' });
+const client = new cassandra.Client({ contactPoints: ['ec2-52-53-171-108.us-west-1.compute.amazonaws.com'], keyspace: 'soundscale' });
 
 // helper hash function for new songs
 hashFunction = (string) => {
