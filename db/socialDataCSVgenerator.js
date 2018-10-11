@@ -10,7 +10,7 @@ let nameString = `id, name, plays, songs`;
 faker.seed(13579);
 
 const addOneMillion = (i) => {
-  if (i > 9) {
+  if (i > 1) {
     return;
   }
   let nameString = ''
@@ -18,9 +18,9 @@ const addOneMillion = (i) => {
     nameString += `id, name, plays, likes, reposts${'\n'}`;
   }
   for (let j = 1; j <= 1000000; j += 1) {
-    nameString += `${j + (1000000 * i)},${faker.commerce.color()} ${faker.hacker.noun()} ${j + (1000000 * i)}, ${getRandomInt(100000) + 1}, ${getRandomInt(100000) + 1}, ${getRandomInt(100000) + 1}${'\n'}`;
+    nameString += `${j + (1000000 * i)},${faker.commerce.color()} ${faker.hacker.noun()} ${j + (1000000 * i)}, 1000, 20000, ${getRandomInt(100000) + 1}${'\n'}`;
   }
-  fs.appendFile('./songswithsocialdatawithheader.csv', nameString, (err) => {
+  fs.appendFile('./updatebenchmark.csv', nameString, (err) => {
     if (err) {
       return console.log(err);
     }

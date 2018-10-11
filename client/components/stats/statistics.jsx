@@ -1,7 +1,7 @@
 import React from 'react';
-import PlayCount from './PlayCount';
-import LikeCount from './LikeCount';
-import RepostCount from './RepostCount';
+import PlayCount from './playCount';
+import LikeCount from './likeCount';
+import RepostCount from './repostCount';
 
 class Statistics extends React.Component {
   constructor(props) {

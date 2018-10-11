@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalShareTab from './Modal-share-tab';
+import ModalShareTab from './modal-share-tab';
 
 class ModalContent extends React.Component {
   constructor(props) {

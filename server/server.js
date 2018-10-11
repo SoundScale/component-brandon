@@ -1,64 +1,64 @@
+require('newrelic');
 const express = require('express');
 const cors = require('cors');
-const { getSong, postSong, getAllSongs, deleteSong, updateSongs } = require('../db');
+const { cassandraGetSong , cassandraPostSong, cassandraUpdateSongs, cassandraDeleteSong} = require('../db/cassandraindex')
 var bodyParser = require('body-parser');
+var morgan = require('morgan')
 
 const app = express();
 const port = process.env.PORT || 3004;
 
 app.use(cors());
+app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
-// app.use(express.static('public'));
 app.use('/songs/:id', express.static('public'));
 
 // create new stats for song
 app.post('/api/stats/', (req, res) => {
   const { name, plays, likes, reposts } = req.body;
   const postObj = {
-    name,
-    plays,
-    likes, 
-    reposts 
+    name: name ? name : 0,
+    plays: plays ? plays : 0,
+    likes: likes ? likes : 0, 
+    reposts: reposts ? reposts : 0 
   };
-  postSong(postObj, 
-    (song) => {
-      res.status(201).json(song);
-    }
-  );
+
+  cassandraPostSong(postObj, result => res.status(201).json(name));
 });
 
-// get stats for all songs
-app.get('/api/stats/', (req, res) => {
-  getAllSongs(data => {
-    res.json(data);
-  });
-});
+
+// -----------------------------------------------------------------------
+// DEPRECIATED - THIS ACTION CAN NO LONG BE USED WITH THIS AMOUNT OF DATA!
+// -----------------------------------------------------------------------
+
+// // get stats for all songs
+// app.get('/api/stats/', (req, res) => {
+//   getAllSongs(data => {
+//     res.json(data);
+//   });
+// });
 
 // get stats for one song
 app.get('/api/stats/:id', (req, res) => {
-  getSong(req.params.id, (err, data) => {
-    res.json(data);
-  });
+  cassandraGetSong(req.params.id, data => res.json(data));
 });
 
 // updates stats for one song
 app.patch('/api/stats/:id', (req, res) => {
+  req.body = req.body.body
   let id = parseInt(req.params.id)
   let dataToUpdate = {};
   if (req.body.plays) { dataToUpdate.plays = parseInt(req.body.plays) };
   if (req.body.likes) { dataToUpdate.likes = parseInt(req.body.likes) };
   if (req.body.reposts) { dataToUpdate.reposts = parseInt(req.body.reposts) };
-  updateSongs(
-    id, 
-    dataToUpdate, 
-    res.status(204)
-  )
+  cassandraUpdateSongs(id, dataToUpdate, data => res.status(204).end())
 });
 
 // delete stats for one song
 app.delete('/api/stats/:id', (req, res) => {
-  deleteSong(parseInt(req.params.id), () => res.status(204).send());
+  cassandraDeleteSong(parseInt(req.params.id), () => res.status(204).end());  
 });
 
 

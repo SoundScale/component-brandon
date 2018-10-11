@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import Profile from './Profile';
-import Commenting from './Commenting';
-import Likes from './Likes';
-import Reposts from './repost/Reposts';
+import Profile from './profile';
+import Commenting from './commenting';
+import Likes from './likes';
+import Reposts from './repost/reposts';
 import Share from './share/Sharing';
-import More from './More';
-import Statistics from './stats/Statistics';
+import More from './more';
+import Statistics from './stats/statistics';
 
 
 class SocialArea extends React.Component {
@@ -23,7 +23,7 @@ class SocialArea extends React.Component {
     const id = window.location.pathname.split('/')[2];
     axios.get(`/api/stats/${id}`)
       .then(({ data }) => {
-        const response = data[0];
+        const response = data;
         this.setState({
           plays: response.plays,
           likes: response.likes,

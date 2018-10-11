@@ -1,13 +1,32 @@
-CREATE KEYSPACE soundscale WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'replication_factor' : 3 }
+CREATE KEYSPACE soundscale WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 }
 
 CREATE TABLE songs(
    id int PRIMARY KEY,
    name text,
-   plays text,
+   plays int,
    likes int,
    reposts int
    );
 
 
+START CASSANDRA
+
+systemctl start cassandra
+systemctl -l status cassandra
+
 CASSANDRA LOADER -> go to cassandra-loader/build and run the following;
-./cassandra-loader -f /home/brandon/Projects/javascript/component-brandon-socialArea/db/songswithsocialdatawithheader.csv -host localhost -schema "soundscale.songs(id, name, plays, likes, reposts)"
+sudo ./cassandra-loader -f "/home/brandon/Projects/Javascript/component-brandon-socialArea/db/songswithsocialdatawithheader.csv" -host localhost -schema "soundscale.songs(id, name, plays, likes, reposts)"
+
+CREATE INDEX name_index ON soundscale.songs (name);
+
+SELECT * FROM songs WHERE name='pink driver 5';
+SELECT * FROM songs WHERE name='grey application 1000009';
+SELECT * FROM songs WHERE name='azure interface 2000009';
+SELECT * FROM songs WHERE name='azure firewall 3000009';
+SELECT * FROM songs WHERE name='ivory capacitor 4000009';
+SELECT * FROM songs WHERE name='mint green bus 5000009';
+SELECT * FROM songs WHERE name='orchid monitor 6000009';
+SELECT * FROM songs WHERE name='lavender panel 7000009';
+SELECT * FROM songs WHERE name='violet bus 8000009';
+SELECT * FROM songs WHERE name='lavender application 9000009';
+SELECT * FROM songs WHERE name='grey application 1000009';
