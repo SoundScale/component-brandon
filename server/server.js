@@ -16,6 +16,10 @@ app.use(bodyParser.json())
 
 app.use('/songs/:id', express.static('public'));
 
+app.get('/loaderio-*', (req, res) => {
+  res.status(200).send(process.env.LOADERIO)
+})
+
 // create new stats for song
 app.post('/api/stats/', (req, res) => {
   const { name, plays, likes, reposts } = req.body;
