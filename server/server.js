@@ -20,6 +20,10 @@ app.get('/loaderio-*', (req, res) => {
   res.status(200).send(process.env.LOADERIO)
 })
 
+app.get('/healthy', (req, res) => {
+  res.status(200).end();
+})
+
 // create new stats for song
 app.post('/api/stats/', (req, res) => {
   const { name, plays, likes, reposts } = req.body;
