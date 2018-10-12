@@ -4,13 +4,13 @@ const express = require('express');
 const cors = require('cors');
 const { cassandraGetSong , cassandraPostSong, cassandraUpdateSongs, cassandraDeleteSong} = require('../db/cassandraindex')
 var bodyParser = require('body-parser');
-var morgan = require('morgan')
+// var morgan = require('morgan')
 
 const app = express();
 const port = process.env.PORT || 3004;
 
 app.use(cors());
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
